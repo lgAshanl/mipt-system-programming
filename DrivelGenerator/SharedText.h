@@ -1,9 +1,9 @@
 #include "atomic"
+#include "vector"
 
 #ifndef DRIVELGENERATOR_SHAREDTEXT_H
 #define DRIVELGENERATOR_SHAREDTEXT_H
 #endif //DRIVELGENERATOR_SHAREDTEXT_H
-#define usize std::size_t
 
 class SharedTextARC;
 
@@ -15,10 +15,12 @@ public:
 
     SharedText &operator=(SharedText &other) = delete;
 
-    static SharedTextARC BuildSharedText(const char *text, usize length, bool move);
+    size_t GetSize();
+
+    static SharedTextARC BuildSharedText(const char *text, size_t length, bool move);
 
 private:
-    explicit SharedText(const char *text, usize length, bool move);
+    explicit SharedText(const char *text, size_t length, bool move);
 
     void TextToStrings();
 
@@ -28,7 +30,7 @@ private:
 
 private:
     char *data;
-    usize size;
+    size_t size;
 };
 
 class SharedTextARC {
@@ -39,15 +41,24 @@ public:
 
     SharedTextARC(const SharedTextARC &obj);
 
+    size_t GetTextSize();
+
     ~SharedTextARC();
+
+    const char *GetText();
+
+    void TextToStrings();
+
+    void StringsToText();
 
 private:
     explicit SharedTextARC(SharedText *text);
 
 public:
-    SharedText *text;
-    std::atomic<usize> *counter;
-    char **strings;
-    usize strings_num;
-};
+    std::vector<char *> strings;
+    size_t strings_num;
 
+private:
+    SharedText *text;
+    std::atomic<size_t> *counter;
+};
