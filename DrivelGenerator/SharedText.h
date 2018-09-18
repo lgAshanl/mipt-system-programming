@@ -11,6 +11,20 @@
 
 class SharedTextARC;
 
+//-----------------------------------------------------------------------------------
+//! SharedText
+//! realisation of shared text with swapable lines
+//! is provided as a rust-like Arc to SharedText
+//!
+//! !Build with Shared::BuildSharedText
+//!
+//! @param [in] char* text - input text
+//! @param [in] size_t length - length of text
+//! @param [in] bool move - if true move text, else copy
+//!
+//! @return SharedTextARC
+// ---------------------------------------------------------------------------------
+
 class SharedText {
     friend class SharedTextARC;
 

@@ -4,7 +4,17 @@
 #include "FileTools.h"
 #include "DrivelGenerators.h"
 
-
+//-----------------------------------------------------------------------------------
+//! DrivelGenerator
+//! generate sorted files with alphabet order, -alphabet order, and original order
+//!
+//! @param [in] .input - input file
+//!
+//! @return .dict - alphabet order,
+//! @return .rhyme - alphabet order,
+//! @return .origin - original order
+//!
+// ---------------------------------------------------------------------------------
 
 int main() {
     size_t size;
