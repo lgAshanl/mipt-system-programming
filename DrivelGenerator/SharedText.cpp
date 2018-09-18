@@ -1,13 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <cstring>
 #include "SharedText.h"
-#include "stdio.h"
-
-#define size_t std::size_t
-
 
 SharedText::SharedText(const char *text, size_t length, bool move) {
+    assert(text != nullptr);
     this->size = sizeof(char) * length + 1;
     if (!move) {
         this->data = (char *) malloc(size * sizeof(char));
@@ -23,6 +17,7 @@ SharedText::~SharedText() {
 }
 
 SharedTextARC SharedText::BuildSharedText(const char *text, size_t length, bool move) {
+    assert(text != nullptr);
     auto shared_text = new SharedText(text, length, move);
     return SharedTextARC(shared_text);
 }
@@ -49,6 +44,7 @@ size_t SharedText::GetSize() {
 };
 
 SharedTextARC::SharedTextARC(SharedText *text) {
+    assert(text != nullptr);
     this->text = text;
     this->counter = new std::atomic<size_t>(1);
 
@@ -71,6 +67,7 @@ SharedTextARC::SharedTextARC(SharedText *text) {
 }
 
 SharedTextARC::SharedTextARC(const SharedTextARC &obj) : strings(obj.strings) {
+    assert(&text);
     this->counter = obj.counter;
     ++(*this->counter);
     this->text = obj.text;
@@ -84,7 +81,6 @@ SharedTextARC::~SharedTextARC() {
         delete this->text;
     };
 }
-
 
 const char *SharedTextARC::GetText() {
     return this->text->data;

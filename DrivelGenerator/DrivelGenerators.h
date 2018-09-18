@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "cstring"
+#include "assert.h"
 
 #ifndef DRIVELGENERATOR_DRIVELGENERATORS_H
 #define DRIVELGENERATOR_DRIVELGENERATORS_H

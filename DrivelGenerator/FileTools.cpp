@@ -1,6 +1,8 @@
 #include "FileTools.h"
 
 char *read_file(const char *filename, size_t *size) {
+    assert(size != nullptr);
+
     std::ifstream file;
     file.open(filename, std::ios::in | std::ios::binary | std::ios::ate);
     assert(file.is_open());
@@ -18,6 +20,8 @@ char *read_file(const char *filename, size_t *size) {
 }
 
 void write_file(const char *filename, SharedTextARC &text_arc) {
+    assert(&text_arc);
+
     std::ofstream file;
     file.open(filename, std::ios::out | std::ios::binary | std::ios::trunc);
     assert(file.is_open());
@@ -26,6 +30,8 @@ void write_file(const char *filename, SharedTextARC &text_arc) {
     char *local_buf = buffer;
     for (auto i = text_arc.strings.begin(); i != text_arc.strings.end(); ++i) {
         if (**i.base() == 0) {
+            *local_buf = '\n';
+            ++local_buf;
             continue;
         } else {
             size_t len = strlen(*i.base());

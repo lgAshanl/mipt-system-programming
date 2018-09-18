@@ -1,5 +1,9 @@
 #include "atomic"
 #include "vector"
+#include <stdio.h>
+#include <stdlib.h>
+#include <cstring>
+#include "assert.h"
 
 #ifndef DRIVELGENERATOR_SHAREDTEXT_H
 #define DRIVELGENERATOR_SHAREDTEXT_H
