@@ -12,4 +12,5 @@ int QuadraticEquationSolver(int argc, char *argv[]);
 
 int EquationSolver(double a, double b, double c,
                    double *x, double *y);
+
 void get_coefficients(char* argv[], int argc, double* coefficients);
