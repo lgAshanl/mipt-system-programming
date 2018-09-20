@@ -9,11 +9,8 @@ void generate_dict(const char *filename, SharedTextARC text_arc) {
     write_file(filename, text_arc);
 }
 
-bool pass_sym(const char *str, long long *ind, std::vector<char> &extra_symbols) {
-    assert(&extra_symbols);
-    if (std::find(extra_symbols.begin(),
-                  extra_symbols.end(),
-                  str[*ind]) != extra_symbols.end()) {
+bool pass_sym(const char *str, long long *ind) {
+    if (!isalpha(str[*ind]) && str[*ind] != 0) {
         --*ind;
         return true;
     };
@@ -32,16 +29,14 @@ void generate_rhyme(const char *filename, SharedTextARC text_arc) {
             return true;
         }
 
-        std::vector<char> extra_characters = {',', '.', '-', '!', '?', '+'};
-
-        for (long long i = 0, k = 0;; --i, --k) {
-            if (pass_sym(rev_other, &k, extra_characters)) {
+        for (long long i = 0, k = 0;;) {
+            if (pass_sym(rev_other, &k)) {
                 if (&rev_other[k] == other.date) {
                     return false;
                 }
                 continue;
             }
-            if (pass_sym(rev_one, &i, extra_characters)) {
+            if (pass_sym(rev_one, &i)) {
                 if (&rev_one[i] == one.date) {
                     return true;
                 }
@@ -60,6 +55,7 @@ void generate_rhyme(const char *filename, SharedTextARC text_arc) {
             if (&rev_other[k] == other.date) {
                 return false;
             }
+            --i, --k;
         }
     });
 
