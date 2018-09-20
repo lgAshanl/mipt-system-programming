@@ -29,18 +29,10 @@ void write_file(const char *filename, SharedTextARC &text_arc) {
     char *buffer = (char *) calloc(text_arc.GetTextSize(), sizeof(char));
     char *local_buf = buffer;
     for (auto i = text_arc.strings.begin(); i != text_arc.strings.end(); ++i) {
-        if (**i.base() == 0) {
-            *local_buf = '\n';
-            ++local_buf;
-            continue;
-        } else {
-            size_t len = strlen(*i.base());
-            memcpy(local_buf, *i.base(), len);
-            local_buf += len;
-            *local_buf = '\n';
-            ++local_buf;
-        }
-
+        memcpy(local_buf, i.base()->date, i.base()->size);
+        local_buf += i.base()->size;
+        *local_buf = '\n';
+        ++local_buf;
     }
     buffer[text_arc.GetTextSize() - 1] = 0;
 

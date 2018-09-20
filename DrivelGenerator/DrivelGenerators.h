@@ -20,9 +20,9 @@
 
 #endif //DRIVELGENERATOR_FILETOOLS_H
 
-void generate_rhyme(const char *filename, SharedTextARC &text_arc);
+void generate_rhyme(const char *filename, SharedTextARC text_arc);
 
-void generate_dict(const char *filename, SharedTextARC &text_arc);
+void generate_dict(const char *filename, SharedTextARC text_arc);
 
-void generate_origin(const char *filename, SharedTextARC &text_arc);
+void generate_origin(const char *filename, SharedTextARC text_arc);
 

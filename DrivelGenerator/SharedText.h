@@ -51,6 +51,11 @@ private:
     size_t size;
 };
 
+struct String {
+    char *date;
+    size_t size;
+};
+
 class SharedTextARC {
     friend class SharedText;
 
@@ -73,7 +78,7 @@ private:
     explicit SharedTextARC(SharedText *text);
 
 public:
-    std::vector<char *> strings;
+    std::vector<String> strings;
     size_t strings_num;
 
 private:

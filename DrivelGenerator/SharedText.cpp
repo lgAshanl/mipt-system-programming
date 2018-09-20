@@ -56,17 +56,18 @@ SharedTextARC::SharedTextARC(SharedText *text) {
     }
     this->strings_num = ++strings_counter;
 
+
     this->strings.reserve(this->strings_num);
-    this->strings.push_back(text->data);
-    for (size_t data_i = 0; data_i < text->size; ++data_i) {
-        if (text->data[data_i] == '\n') {
-            this->strings.push_back(&text->data[data_i + 1]);
-        }
-    }
     text->TextToStrings();
+    char *ptr = this->text->data;
+    for (size_t i = 0; i < strings_counter; ++i) {
+        size_t size = strlen(ptr);
+        this->strings.push_back({ptr, size});
+        ptr += size + 1;
+    }
 }
 
-SharedTextARC::SharedTextARC(const SharedTextARC &obj) : strings(obj.strings) {
+SharedTextARC::SharedTextARC(const SharedTextARC &obj) {
     assert(&text);
     this->counter = obj.counter;
     ++(*this->counter);
