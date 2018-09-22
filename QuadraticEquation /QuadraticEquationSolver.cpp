@@ -3,19 +3,22 @@
 #include <iostream>
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "QuadraticEquationSolver.h"
 #include "LinearEquation.h"
 #include "QuadraticEquation.h"
 
 int QuadraticEquationSolver(int argc, char *argv[]) {
-    double coefficients[3];
+    double coefficients[3] = {0};
     if (argc > 1) {
         if (argc > 4) {
             std::cout << "Too many arguments\n";
             return 0;
         }
 
-        get_coefficients(argv, argc, coefficients);
+        for (size_t i = 1; i < argc; ++i) {
+            sscanf(argv[i], "%lf", &coefficients[i - 1]);
+        }
     } else {
         std::cout << "Enter the arguments" << std::endl;
         scanf("%lf %lf %lf", &coefficients[0], &coefficients[1], &coefficients[2]);
@@ -41,29 +44,6 @@ int QuadraticEquationSolver(int argc, char *argv[]) {
     }
 
     return 0;
-}
-
-bool is_number(const char* arg) {
-    while (*arg != 0) {
-        if (!std::isdigit(*arg )) {
-            return false;
-        }
-        arg++;
-    }
-    return true;
-}
-
-void get_coefficients(char* argv[], int argc, double* coefficients) {
-    int i = 1;
-    for (; i < argc; ++i) {
-        assert(is_number(argv[i]));
-        coefficients[i-1] = strtod(argv[i], NULL);
-        assert(coefficients[i-1] != HUGE_VAL);
-    }
-
-    for (; i < 3; ++i) {
-        coefficients[i] = 0;
-    }
 }
 
 int EquationSolver(double a, double b, double c,
