@@ -24,15 +24,20 @@ int QuadraticEquationSolver(int argc, char *argv[]) {
         scanf("%lf %lf %lf", &coefficients[0], &coefficients[1], &coefficients[2]);
     }
 
-    double x, y;
+    double x = NAN, y = NAN;
     switch (EquationSolver(coefficients[0], coefficients[1], coefficients[2], &x, &y)) {
         case NO_ROOTS:
             std::cout << "No solutions" << std::endl;
             break;
         case ONE_ROOT:
+            assert(x == x);
+
             std::cout << "One root: " << x << std::endl;
             break;
         case TWO_ROOTS:
+            assert(x == x);
+            assert(y == y);
+
             std::cout << "Two roots: " << x << " & " << y << std::endl;
             break;
         case INF_ROOTS:
