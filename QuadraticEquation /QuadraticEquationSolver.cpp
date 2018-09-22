@@ -69,10 +69,6 @@ void get_coefficients(char* argv[], int argc, double* coefficients) {
 int EquationSolver(double a, double b, double c,
                    double *x, double *y) {
     if (a == 0) {
-        if (b == 0) {
-            return c == 0 ? INF_ROOTS: NO_ROOTS;
-        }
-
         return LinearEquation(b, c, x);
     }
 

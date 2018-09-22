@@ -23,8 +23,5 @@
 //-------------------------------------------------------
 
 int main(int argc, char *argv[]) {
-    int x = 1;
-    int y = 0;
-    std::cout << (x / y * y + x % y);
     return QuadraticEquationSolver(argc, argv);
 }
