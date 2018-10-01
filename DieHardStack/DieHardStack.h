@@ -55,7 +55,7 @@ private:
 template<class T>
 DieHardStack<T>::DieHardStack(): size(0), capacity(INIT_CAPACITY), hash(),
                                  data((T *) malloc(INIT_CAPACITY * sizeof(T))) {
-    MD5((unsigned char *) this, sizeof(this), hash.data);
+    MD5((unsigned char *) this, sizeof(*this) - sizeof(double) - sizeof(hash), hash.data);
 }
 
 template<class T>
@@ -66,14 +66,13 @@ DieHardStack<T>::~DieHardStack() {
 template<class T>
 bool DieHardStack<T>::isValid() {
     unsigned char hash[MD5_DIGEST_LENGTH];
-    std::cout << "size: " << sizeof(*this) << "\n";
-    MD5((unsigned char *) this, sizeof(*this), hash);
+    MD5((unsigned char *) this, sizeof(*this) - sizeof(double) - sizeof(this->hash), hash);
     return std::equal(hash, hash + MD5_DIGEST_LENGTH, this->hash.data);
 }
 
 template<class T>
 void DieHardStack<T>::validate() {
-    MD5((unsigned char *) this, sizeof(this), hash.data);
+    MD5((unsigned char *) this, sizeof(*this) - sizeof(double) - sizeof(this->hash), hash.data);
 }
 
 template<class T>
@@ -107,7 +106,7 @@ T DieHardStack<T>::pop() {
     }
 
     --size.data;
-    //validate();
+    validate();
 
     return data.data[size.data];
 }
