@@ -1,12 +1,13 @@
+#include "assert.h"
 #include <iostream>
 #include "DieHardStack.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
     DieHardStack<int> a;
     a.push(3);
-    std::cout << a.isValid() << "\n";
-    std::cout << a.pop() << "\n";
-    std::cout << a.isValid() << "\n";
+    assert(a.isValid());
+    assert(a.pop() == 3);
+    assert(a.isValid());
+    a.print();
     return 0;
 }

@@ -41,6 +41,8 @@ public:
 
     T pop();
 
+    void print();
+
 private:
     void validate();
 
@@ -49,7 +51,7 @@ private:
     PoisonGuard<std::size_t> size;
     PoisonGuard<std::size_t> capacity;
     PoisonGuard<unsigned char[MD5_DIGEST_LENGTH]> hash;
-    double poison_guard = std::numeric_limits<double>::quiet_NaN();
+    double poison_guard = std::numeric_limits<double>::signaling_NaN();
 };
 
 template<class T>
@@ -67,6 +69,8 @@ template<class T>
 bool DieHardStack<T>::isValid() {
     unsigned char hash[MD5_DIGEST_LENGTH];
     MD5((unsigned char *) this, sizeof(*this) - sizeof(double) - sizeof(this->hash), hash);
+    assert(this->data.nan != this->data.nan);
+    assert(this->poison_guard != this->poison_guard);
     return std::equal(hash, hash + MD5_DIGEST_LENGTH, this->hash.data);
 }
 
@@ -88,7 +92,7 @@ bool DieHardStack<T>::push(T element) {
     bool is_resized = false;
     if (size == capacity) {
         data.data = (T *) realloc(data.data, capacity.data <<= 1);
-        assert(data.data != NULL);
+        assert(data.data != nullptr);
         is_resized = true;
     }
 
@@ -109,4 +113,13 @@ T DieHardStack<T>::pop() {
     validate();
 
     return data.data[size.data];
+}
+
+template<class T>
+void DieHardStack<T>::print() {
+    printf(">DieHardStack debug output:\n"
+           "--> size: %ld\n"
+           "--> capacity: %ld\n"
+           "--> data_ptr: %p\n",
+           this->size.data, this->capacity.data, this->data.data);
 }
