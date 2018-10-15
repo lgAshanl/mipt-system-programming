@@ -4,6 +4,7 @@
 #include <openssl/md5.h>
 #include <assert.h>
 #include <algorithm>
+#include <signal.h>
 
 #ifndef DIEHARDSTACK_DIEHARDSTACK_H
 #define DIEHARDSTACK_DIEHARDSTACK_H
@@ -106,7 +107,7 @@ T DieHardStack<T>::pop() {
     assert(isValid());
     if (isEmpty()) {
         std::cerr << "pop of empty DieHardStack" << std::endl;
-        exit(1);
+        raise(SIGSEGV);
     }
 
     --size.data;
