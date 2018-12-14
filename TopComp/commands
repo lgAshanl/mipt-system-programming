@@ -1,0 +1,16 @@
+add 0
+sub 1
+mul 2
+div 3
+mov 4
+push 5
+pop 6
+call 7
+ret 8
+sqrt 9
+je 10
+jne 11
+in 12
+hello 13
+cmp 14
+out 15

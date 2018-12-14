@@ -1,10 +1,17 @@
+#ifndef TOPCOMP_DIEHARDSTACK_H
+#define TOPCOMP_DIEHARDSTACK_H
+
+#endif //TOPCOMP_DIEHARDSTACK_H
+
 #include <cmath>
+//#include "math.h"
 #include <cstring>
 #include <limits>
 #include <openssl/md5.h>
 #include <assert.h>
 #include <algorithm>
 #include <signal.h>
+#include <iostream>
 
 #ifndef DIEHARDSTACK_DIEHARDSTACK_H
 #define DIEHARDSTACK_DIEHARDSTACK_H
@@ -41,6 +48,8 @@ public:
     bool push(T element);
 
     T pop();
+
+    T top();
 
     void print();
 
@@ -106,7 +115,7 @@ template<class T>
 T DieHardStack<T>::pop() {
     assert(isValid());
     if (isEmpty()) {
-        cerr << "pop of empty DieHardStack" << endl;
+        std::cerr << "pop of empty DieHardStack" << std::endl;
         raise(SIGSEGV);
     }
 
@@ -117,10 +126,26 @@ T DieHardStack<T>::pop() {
 }
 
 template<class T>
+T DieHardStack<T>::top() {
+    assert(isValid());
+    if (isEmpty()) {
+        std::cerr << "top of empty DieHardStack" << std::endl;
+        raise(SIGSEGV);
+    }
+    validate();
+
+    return data.data[size.data-1];
+}
+
+template<class T>
 void DieHardStack<T>::print() {
     printf(">DieHardStack debug output:\n"
            "--> size: %ld\n"
            "--> capacity: %ld\n"
            "--> data_ptr: %p\n",
            this->size.data, this->capacity.data, this->data.data);
+    for (int i = 0; i < size.data; ++i) {
+        printf("%lf ", data.data[i]);
+    }
+    printf("\n");
 }
